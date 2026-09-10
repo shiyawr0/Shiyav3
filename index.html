@@ -1,0 +1,2827 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Jaden Marion R. Angulo | Portfolio</title><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet"><style>
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+:root {
+    --black: #050505;
+    --panel: #111111;
+
+    --red: #D90429;
+    --bright-red: #FF0033;
+
+    --white: #F7FAFC;
+    --gray: #A0AEC0;
+
+    --heading: 'Oswald', sans-serif;
+    --body: 'Montserrat', sans-serif;
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background: var(--black);
+    color: var(--gray);
+    font-family: var(--body);
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   SCANLINES
+===================================================== */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.02) 0px,
+        rgba(255,255,255,0.02) 1px,
+        transparent 1px,
+        transparent 4px
+    );
+
+    z-index: 9999;
+}
+
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.app-background {
+    position: fixed;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 75% 50%,
+            rgba(217,4,41,0.15),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 15% 85%,
+            rgba(255,0,51,0.08),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #050505,
+            #151515 50%,
+            #050505
+        );
+
+    z-index: -5;
+}
+
+.app-background::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 46px 46px;
+
+    animation: gridMove 15s linear infinite;
+}
+
+@keyframes gridMove {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 46px 46px;
+    }
+}
+
+.glow-orb {
+    position: fixed;
+
+    width: 480px;
+    height: 480px;
+
+    right: -140px;
+    top: 30%;
+
+    transform: translateY(-50%);
+
+    background: var(--red);
+
+    filter: blur(170px);
+
+    opacity: 0.14;
+
+    z-index: -4;
+
+    animation: glowMove 6s ease-in-out infinite alternate;
+}
+
+@keyframes glowMove {
+    from {
+        opacity: 0.09;
+        transform: translateY(-50%) scale(0.9);
+    }
+
+    to {
+        opacity: 0.18;
+        transform: translateY(-50%) scale(1.1);
+    }
+}
+
+
+/* =====================================================
+   LOADING SCREEN
+===================================================== */
+
+#loading-screen {
+    position: fixed;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #191919,
+            #050505 70%
+        );
+
+    z-index: 10000;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 30px;
+
+    transition:
+        opacity 1s ease,
+        visibility 1s ease;
+}
+
+#loading-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-tag {
+    position: absolute;
+
+    top: 24px;
+
+    font-family: var(--heading);
+
+    font-size: 0.65rem;
+
+    letter-spacing: 3px;
+
+    color: rgba(255,255,255,0.4);
+
+    text-transform: uppercase;
+
+    text-align: center;
+}
+
+.radar-frame {
+    position: relative;
+
+    width: 200px;
+    height: 200px;
+}
+
+.radar-frame::before,
+.radar-frame::after,
+.corner-tr,
+.corner-bl {
+    content: "";
+
+    position: absolute;
+
+    width: 24px;
+    height: 24px;
+
+    border: 2px solid var(--red);
+}
+
+.radar-frame::before {
+    top: -12px;
+    left: -12px;
+
+    border-right: none;
+    border-bottom: none;
+}
+
+.radar-frame::after {
+    bottom: -12px;
+    right: -12px;
+
+    border-left: none;
+    border-top: none;
+}
+
+.corner-tr {
+    top: -12px;
+    right: -12px;
+
+    border-left: none;
+    border-bottom: none;
+}
+
+.corner-bl {
+    bottom: -12px;
+    left: -12px;
+
+    border-right: none;
+    border-top: none;
+}
+
+.radar-circle {
+    position: absolute;
+    inset: 0;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    background:
+        repeating-radial-gradient(
+            circle at center,
+            transparent 0,
+            transparent 24px,
+            rgba(255,255,255,0.06) 25px
+        );
+}
+
+.radar-circle::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 30%;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,0.12);
+}
+
+.radar-sweep {
+    position: absolute;
+    inset: 0;
+
+    border-radius: 50%;
+
+    background:
+        conic-gradient(
+            from 0deg,
+            rgba(217,4,41,0) 0deg,
+            rgba(217,4,41,0.55) 25deg,
+            rgba(217,4,41,0) 60deg
+        );
+
+    animation: sweep 2.2s linear infinite;
+}
+
+@keyframes sweep {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.radar-crosshair::before,
+.radar-crosshair::after {
+    content: "";
+
+    position: absolute;
+
+    background: rgba(255,255,255,0.1);
+}
+
+.radar-crosshair::before {
+    top: 0;
+    bottom: 0;
+    left: 50%;
+
+    width: 1px;
+
+    transform: translateX(-50%);
+}
+
+.radar-crosshair::after {
+    left: 0;
+    right: 0;
+    top: 50%;
+
+    height: 1px;
+
+    transform: translateY(-50%);
+}
+
+.radar-blip {
+    position: absolute;
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--bright-red);
+
+    box-shadow:
+        0 0 10px var(--bright-red),
+        0 0 20px var(--red);
+
+    animation: blipPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes blipPulse {
+    0%,
+    100% {
+        opacity: 0.2;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+.radar-readout {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+}
+
+#load-percentage {
+    font-family: var(--heading);
+
+    font-size: 2rem;
+
+    color: var(--white);
+
+    text-shadow:
+        0 0 15px rgba(255,255,255,0.3);
+
+    letter-spacing: 1px;
+}
+
+.radar-readout-label {
+    margin-top: 4px;
+
+    font-family: var(--heading);
+
+    font-size: 0.55rem;
+
+    letter-spacing: 2px;
+
+    color: var(--red);
+
+    text-transform: uppercase;
+}
+
+.loading-status-block {
+    text-align: center;
+
+    padding: 0 6%;
+}
+
+.loading-title {
+    font-family: var(--heading);
+
+    font-size: clamp(1.4rem, 6vw, 2.2rem);
+
+    color: var(--white);
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 8px;
+}
+
+.loading-title span {
+    color: var(--red);
+
+    text-shadow:
+        0 0 15px var(--red),
+        0 0 30px var(--red);
+}
+
+#load-status {
+    font-family: var(--heading);
+
+    font-size: 0.7rem;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    color: var(--gray);
+}
+
+.loading-footer {
+    position: absolute;
+
+    bottom: 24px;
+    left: 0;
+    right: 0;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 0 6%;
+
+    font-family: var(--heading);
+
+    font-size: 0.55rem;
+
+    letter-spacing: 1px;
+
+    color: rgba(255,255,255,0.3);
+}
+
+@media (max-width: 500px) {
+
+    .radar-frame {
+        width: 170px;
+        height: 170px;
+    }
+
+    #load-percentage {
+        font-size: 1.7rem;
+    }
+
+    .loading-footer {
+        display: none;
+    }
+}
+
+
+/* =====================================================
+   APP LAYOUT
+===================================================== */
+
+#app-container {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.view {
+    display: none;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 70px 6% 30px;
+
+    overflow-y: auto;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+.view.active {
+    display: block;
+
+    animation: pageIn 0.4s ease;
+}
+
+@keyframes pageIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#main-menu.view.active {
+    display: flex;
+
+    align-items: center;
+}
+
+.menu-wrap {
+    width: 100%;
+}
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+#back-btn {
+    position: fixed;
+
+    top: 22px;
+    left: 6%;
+
+    display: none;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: var(--gray);
+
+    font-family: var(--heading);
+
+    font-size: 0.9rem;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    z-index: 200;
+
+    transition: 0.2s;
+}
+
+#back-btn.visible {
+    display: flex;
+}
+
+#back-btn:hover {
+    color: white;
+}
+
+#back-btn::before {
+    content: "◄";
+
+    color: var(--red);
+
+    font-size: 0.8rem;
+}
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+.menu-tag {
+    font-family: var(--heading);
+
+    font-size: 0.65rem;
+
+    letter-spacing: 3px;
+
+    color: rgba(255,255,255,0.4);
+
+    text-transform: uppercase;
+
+    margin-bottom: 20px;
+}
+
+.menu-list {
+    display: flex;
+
+    flex-direction: column;
+
+    width: 100%;
+}
+
+.menu-row {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    min-height: 68px;
+
+    cursor: pointer;
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 0,
+            97% 100%,
+            0% 100%
+        );
+
+    background: rgba(15,15,15,0.7);
+
+    border-left: 3px solid rgba(255,255,255,0.15);
+
+    margin-bottom: 12px;
+
+    transition: 0.25s ease;
+
+    overflow: hidden;
+
+    padding: 12px 16px 12px 0;
+
+    gap: 10px;
+}
+
+.menu-row::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: var(--red);
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    transition: transform 0.3s ease;
+
+    z-index: 0;
+
+    opacity: 0.12;
+}
+
+.menu-row:active {
+    border-left-color: var(--red);
+}
+
+.menu-row:active::before {
+    transform: scaleX(1);
+}
+
+.menu-index {
+    position: relative;
+
+    z-index: 1;
+
+    font-family: var(--heading);
+
+    font-size: 0.7rem;
+
+    letter-spacing: 1px;
+
+    color: var(--red);
+
+    flex-shrink: 0;
+
+    padding-left: 18px;
+}
+
+.menu-label {
+    position: relative;
+
+    z-index: 1;
+
+    font-family: var(--heading);
+
+    font-size: clamp(1rem, 4.5vw, 1.4rem);
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    color: var(--white);
+
+    white-space: nowrap;
+}
+
+.menu-sub {
+    position: relative;
+
+    z-index: 1;
+
+    margin-left: auto;
+
+    text-align: right;
+
+    font-family: var(--heading);
+
+    font-size: clamp(0.5rem, 2vw, 0.6rem);
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    color: rgba(255,255,255,0.35);
+
+    white-space: nowrap;
+
+    flex-shrink: 0;
+}
+
+@media (hover: hover) {
+
+    .menu-row:hover {
+        border-left-color: var(--red);
+    }
+
+    .menu-row:hover::before {
+        transform: scaleX(1);
+    }
+
+    .menu-row:hover .menu-sub {
+        color: rgba(255,255,255,0.7);
+    }
+}
+
+
+/* =====================================================
+   SECTION HEADER
+===================================================== */
+
+.panel-header {
+    font-family: var(--heading);
+
+    font-size: clamp(1.6rem, 8vw, 3rem);
+
+    color: white;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 1.5rem;
+
+    border-bottom: 2px solid var(--red);
+
+    padding-bottom: 8px;
+
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   DATA GRID
+===================================================== */
+
+.data-grid {
+    width: 100%;
+
+    max-width: 800px;
+
+    display: grid;
+
+    gap: 1.1rem;
+
+    padding: 1.4rem;
+
+    background: rgba(15,15,15,0.88);
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    border-left: 4px solid var(--red);
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.6);
+
+    margin-bottom: 1.5rem;
+}
+
+.data-row {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    font-size: 0.95rem;
+}
+
+.data-label {
+    color: var(--red);
+
+    font-family: var(--heading);
+
+    font-size: 0.7rem;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+.data-value {
+    color: white;
+
+    font-weight: 500;
+
+    font-size: 0.95rem;
+
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   TAGS
+===================================================== */
+
+.games-list {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+}
+
+.game-tag {
+    padding: 5px 12px;
+
+    border: 1px solid rgba(255,255,255,0.2);
+
+    background: rgba(255,255,255,0.05);
+
+    font-family: var(--heading);
+
+    font-size: 0.7rem;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    transition: 0.2s;
+
+    cursor: pointer;
+}
+
+@media (hover: hover) {
+
+    .game-tag:hover {
+        border-color: var(--red);
+
+        background:
+            rgba(217,4,41,0.15);
+    }
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-family: var(--heading);
+
+    font-size: 0.65rem;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--red);
+
+    box-shadow:
+        0 0 10px var(--red);
+
+    animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+
+    50% {
+        opacity: 0.2;
+    }
+}
+
+
+/* =====================================================
+   SPOTIFY PLAYER
+===================================================== */
+
+#song-player {
+    max-height: 0;
+
+    overflow: hidden;
+
+    margin-top: 0;
+
+    transition:
+        max-height 0.4s ease,
+        margin-top 0.4s ease;
+}
+
+#song-player.open {
+    max-height: 200px;
+
+    margin-top: 16px;
+}
+
+#song-player iframe {
+    display: block;
+
+    width: 100%;
+
+    max-width: 500px;
+}
+
+
+/* =====================================================
+   PROJECTS
+===================================================== */
+
+.project-list {
+    width: 100%;
+
+    max-width: 800px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.project-item {
+    padding: 1.1rem 1.3rem;
+
+    background: rgba(15,15,15,0.88);
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    border-left: 4px solid var(--red);
+}
+
+.project-name {
+    font-family: var(--heading);
+
+    font-size: 1.05rem;
+
+    color: white;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 5px;
+}
+
+.project-desc {
+    font-size: 0.85rem;
+
+    color: var(--gray);
+
+    line-height: 1.5;
+}
+
+.attachments {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 10px;
+}
+
+.attachment-item {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 5px 12px;
+
+    border: 1px solid rgba(255,255,255,0.2);
+
+    background: rgba(255,255,255,0.05);
+
+    color: var(--gray);
+
+    text-decoration: none;
+
+    font-family: var(--heading);
+
+    font-size: 0.65rem;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+/* =====================================================
+   COMBAT SIM
+===================================================== */
+
+.game-wrap {
+    width: 100%;
+
+    max-width: 500px;
+}
+
+.game-hud {
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 0.8rem;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    color: var(--gray);
+
+    margin-bottom: 8px;
+
+    font-family: var(--heading);
+}
+
+#game-canvas {
+    display: block;
+
+    width: 100%;
+
+    aspect-ratio: 3 / 4;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #151515,
+            #050505
+        );
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    border-left: 4px solid var(--red);
+
+    touch-action: none;
+
+    cursor: crosshair;
+}
+
+.game-overlay-btn {
+    display: block;
+
+    margin: 14px auto 0;
+
+    padding: 10px 30px;
+
+    background:
+        rgba(217,4,41,0.1);
+
+    border: 1px solid var(--red);
+
+    color: var(--white);
+
+    font-family: var(--heading);
+
+    font-size: 0.9rem;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.game-overlay-btn:hover {
+    background:
+        rgba(217,4,41,0.25);
+
+    box-shadow:
+        0 0 15px rgba(217,4,41,0.3);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .view {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .menu-row {
+        min-height: 62px;
+    }
+
+    .menu-sub {
+        display: none;
+    }
+
+    .data-grid {
+        padding: 1.1rem;
+    }
+
+    .panel-header {
+        margin-bottom: 1.2rem;
+    }
+}
+
+</style></head><body><!-- =====================================================
+     BACKGROUND
+===================================================== --><div class="app-background"></div>
+<div class="glow-orb"></div><!-- =====================================================
+     LOADING SCREEN
+===================================================== --><div id="loading-screen"><div class="loading-tag">
+    ANGULO // PERSONAL OPERATIONS NETWORK
+</div>
+
+<div class="radar-frame">
+
+    <div class="corner-tr"></div>
+    <div class="corner-bl"></div>
+
+    <div class="radar-circle"></div>
+    <div class="radar-crosshair"></div>
+    <div class="radar-sweep"></div>
+
+    <div
+        class="radar-blip"
+        style="top:35%;left:62%;">
+    </div>
+
+    <div
+        class="radar-blip"
+        style="top:68%;left:40%;animation-delay:0.6s;">
+    </div>
+
+    <div class="radar-readout">
+
+        <div id="load-percentage">
+            0%
+        </div>
+
+        <div class="radar-readout-label">
+            Scanning
+        </div>
+
+    </div>
+
+</div>
+
+<div class="loading-status-block">
+
+    <div class="loading-title">
+        SYSTEM <span>ONLINE</span>
+    </div>
+
+    <div id="load-status">
+        Initializing System
+    </div>
+
+</div>
+
+<div class="loading-footer">
+
+    <span>
+        AUTHORIZATION: VERIFIED
+    </span>
+
+    <span>
+        CONNECTION: SECURE
+    </span>
+
+    <span>
+        BUILD 2026
+    </span>
+
+</div>
+
+</div><!-- =====================================================
+     BACK BUTTON
+===================================================== --><div id="back-btn" onclick="goBack()">
+    Back
+</div><!-- =====================================================
+     MAIN APPLICATION
+===================================================== --><main id="app-container"><!-- =================================================
+     MAIN MENU
+================================================== -->
+
+<section id="main-menu" class="view active">
+
+    <div class="menu-wrap">
+
+        <div class="menu-tag">
+            Angulo // Personal Operations Network
+        </div>
+
+        <div class="menu-list">
+
+            <div
+                class="menu-row"
+                onclick="navigate('about-view')">
+
+                <div class="menu-index">
+                    01
+                </div>
+
+                <div class="menu-label">
+                    About Me
+                </div>
+
+                <div class="menu-sub">
+                    Operator Profile
+                </div>
+
+                  </div>
+
+
+            <div
+                class="menu-row"
+                onclick="navigate('projects-view')">
+
+                <div class="menu-index">
+                    02
+                </div>
+
+                <div class="menu-label">
+                    Projects
+                </div>
+
+                <div class="menu-sub">
+                    System Archives
+                </div>
+
+            </div>
+
+
+            <div
+                class="menu-row"
+                onclick="navigate('other-view')">
+
+                <div class="menu-index">
+                    03
+                </div>
+
+                <div class="menu-label">
+                    Other
+                </div>
+
+                <div class="menu-sub">
+                    Miscellaneous Data
+                </div>
+
+            </div>
+
+
+            <!-- FIXED: COMBAT SIM IS NOW IN BODY -->
+
+            <div
+                class="menu-row"
+                onclick="navigate('game-view')">
+
+                <div class="menu-index">
+                    04
+                </div>
+
+                <div class="menu-label">
+                    Combat Sim
+                </div>
+
+                <div class="menu-sub">
+                    Mini Game
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     ABOUT ME
+================================================== -->
+
+<section id="about-view" class="view">
+
+    <h1 class="panel-header">
+        Operator Data
+    </h1>
+
+    <div class="data-grid">
+
+
+        <div class="data-row">
+
+            <div class="data-label">
+                Designation
+            </div>
+
+            <div class="data-value">
+                Jaden Marion R. Angulo
+            </div>
+
+        </div>
+
+
+        <div class="data-row">
+
+            <div class="data-label">
+                Age
+            </div>
+
+            <div class="data-value">
+                17
+            </div>
+
+        </div>
+
+
+        <div class="data-row">
+
+            <div class="data-label">
+                Role
+            </div>
+
+            <div class="data-value">
+                Student / Aspiring Developer
+            </div>
+
+        </div>
+
+
+        <div class="data-row">
+
+            <div class="data-label">
+                University
+            </div>
+
+            <div class="data-value">
+                Polytechnic University of the Philippines
+            </div>
+
+        </div>
+
+
+        <div class="data-row">
+
+            <div class="data-label">
+                Interests
+            </div>
+
+            <div class="games-list">
+
+                <div class="game-tag">
+                    Valorant
+                </div>
+
+                <div class="game-tag">
+                    Call of Duty Mobile
+                </div>
+
+                <div class="game-tag">
+                    Apex Legends
+                </div>
+
+                <div class="game-tag">
+                    Cycling
+                </div>
+
+                <div class="game-tag">
+                    Drawing
+                </div>
+
+                <div class="game-tag">
+                    Playing Drums
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FIXED: BANDS SECTION -->
+
+        <div class="data-row">
+
+            <div class="data-label">
+                Bands I Listen To
+            </div>
+
+            <div class="games-list">
+
+                <div
+                    class="game-tag"
+                    onclick="playSong('48vr34351V9Sz1QVxmbYNf')">
+
+                    Pierce The Veil
+
+                </div>
+
+                <div
+                    class="game-tag"
+                    onclick="playSong('2T04xX1PyMkyPFKBYnlVl1')">
+
+                    Chase Atlantic
+
+                </div>
+
+                <div
+                    class="game-tag"
+                    onclick="playSong('6i0V12jOa3mr6uu4WYhUBr')">
+
+                    Twenty One Pilots
+
+                </div>
+
+                <div
+                    class="game-tag"
+                    onclick="playSong('1yKAqZoi8xWGLCf5vajroL')">
+
+                    My Chemical Romance
+
+                </div>
+
+                <div
+                    class="game-tag"
+                    onclick="playSong('6WBkSZbGBaIWnEgnMoXEJU')">
+
+                    Sleeping With Sirens
+
+                </div>
+
+                <div
+                    class="game-tag"
+                    onclick="playSong('5pKCDm2fw4k6D6C5Rk646C')">
+
+                    Bullet For My Valentine
+
+                </div>
+
+                <div
+                    class="game-tag"
+                    onclick="playSong('61mWefnWQOLf90gepjOCb3')">
+
+                    Slipknot
+
+                </div>
+
+            </div>
+
+
+            <!-- ONLY ONE SONG PLAYER -->
+
+            <div id="song-player"></div>
+
+        </div>
+
+
+        <div class="status">
+
+            <div class="status-dot"></div>
+
+            Status: Actively Learning
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     PROJECT CATEGORY MENU
+================================================== -->
+
+<section id="projects-view" class="view">
+
+    <h1 class="panel-header">
+        System Archives
+    </h1>
+
+    <div class="menu-list">
+
+
+        <div
+            class="menu-row"
+            onclick="navigate('projects-detail-view')">
+
+            <div class="menu-index">
+                01
+            </div>
+
+            <div class="menu-label">
+                Projects
+            </div>
+
+        </div>
+
+
+        <div
+            class="menu-row"
+            onclick="navigate('flowcharts-view')">
+
+            <div class="menu-index">
+                02
+            </div>
+
+            <div class="menu-label">
+                Flowcharts
+            </div>
+
+        </div>
+
+
+        <div
+            class="menu-row"
+            onclick="navigate('activities-view')">
+
+            <div class="menu-index">
+                03
+            </div>
+
+            <div class="menu-label">
+                Activities
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     PROJECT DETAILS
+================================================== -->
+
+<section id="projects-detail-view" class="view">
+
+    <h1 class="panel-header">
+        Projects
+    </h1>
+
+    <div class="project-list">
+
+        <div class="project-item">
+
+            <div class="project-name">
+                Retail Store POS
+            </div>
+
+            <div class="project-desc">
+                A point-of-sale system concept created as part
+                of a Fundamentals of Programming activity.
+            </div>
+
+            <div class="attachments">
+
+                <a
+                    class="attachment-item"
+                    href="files/report.pdf"
+                    target="_blank">
+
+                    Report.pdf
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     FLOWCHARTS
+================================================== -->
+
+<section id="flowcharts-view" class="view">
+
+    <h1 class="panel-header">
+        Flowcharts
+    </h1>
+
+    <div class="project-list">
+
+        <div class="project-item">
+
+            <div class="project-name">
+                Retail Store POS Flowchart
+            </div>
+
+            <div class="project-desc">
+                A programming flowchart showing the basic
+                process of a retail store point-of-sale system.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     ACTIVITIES
+================================================== -->
+
+<section id="activities-view" class="view">
+
+    <h1 class="panel-header">
+        Activities
+    </h1>
+
+    <div class="project-list">
+
+        <div class="project-item">
+
+            <div class="project-name">
+                Fundamentals of Programming
+            </div>
+
+            <div class="project-desc">
+                Programming exercises, flowcharts, and
+                school activities completed during the course.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     OTHER
+================================================== -->
+
+<section id="other-view" class="view">
+
+    <h1 class="panel-header">
+        Miscellaneous Data
+    </h1>
+
+    <div class="data-grid">
+
+
+        <div class="data-row">
+
+            <div class="data-label">
+                Email
+            </div>
+
+            <div class="data-value">
+                jaden.angulo@example.com
+            </div>
+
+        </div>
+
+
+        <div class="data-row">
+
+            <div class="data-label">
+                GitHub
+            </div>
+
+            <div class="data-value">
+                github.com/jadenangulo
+            </div>
+
+        </div>
+
+
+        <div class="data-row">
+
+            <div class="data-label">
+                Quote
+            </div>
+
+            <div class="data-value">
+                "Keep building, keep learning."
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     COMBAT SIM
+================================================== -->
+
+<section id="game-view" class="view">
+
+    <h1 class="panel-header">
+        Combat Sim
+    </h1>
+
+    <div class="game-wrap">
+
+        <div class="game-hud">
+
+            <span id="hud-score">
+                Score: 0
+            </span>
+
+            <span id="hud-lives">
+                Lives: 3
+            </span>
+
+        </div>
+
+
+        <canvas id="game-canvas"></canvas>
+
+
+        <button
+            class="game-overlay-btn"
+            id="game-btn">
+
+            Start
+
+        </button>
+
+    </div>
+
+</section>
+  
+</main>
+
+  <!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+  <script>
+
+
+/* =====================================================
+   LOADING SCREEN
+===================================================== */
+
+const loadPercentage =
+    document.getElementById('load-percentage');
+
+const loadStatus =
+    document.getElementById('load-status');
+
+const loadingScreen =
+    document.getElementById('loading-screen');
+
+
+const statusMessages = [
+
+    {
+        at: 0,
+        text: 'Initializing System'
+    },
+
+    {
+        at: 25,
+        text: 'Loading Operator Data'
+    },
+
+    {
+        at: 55,
+        text: 'Establishing Connection'
+    },
+
+    {
+        at: 80,
+        text: 'Rendering Interface'
+    },
+
+    {
+        at: 100,
+        text: 'Ready'
+    }
+
+];
+
+
+let progress = 0;
+
+
+const loadingInterval = setInterval(() => {
+
+    progress += Math.random() * 8 + 4;
+
+    if (progress >= 100) {
+        progress = 100;
+    }
+
+    loadPercentage.textContent =
+        Math.floor(progress) + '%';
+
+
+    const current =
+        [...statusMessages]
+            .reverse()
+            .find(step => progress >= step.at);
+
+
+    if (current) {
+        loadStatus.textContent =
+            current.text;
+    }
+
+
+    if (progress >= 100) {
+
+        clearInterval(loadingInterval);
+
+        setTimeout(() => {
+
+            loadingScreen.classList.add(
+                'fade-out'
+            );
+
+        }, 400);
+
+    }
+
+}, 150);
+
+
+const failSafeTimer = setTimeout(() => {
+
+    clearInterval(loadingInterval);
+
+    loadingScreen.classList.add(
+        'fade-out'
+    );
+
+}, 6000);
+
+
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
+
+let viewHistory = ['main-menu'];
+
+
+function navigate(targetId) {
+
+    const target =
+        document.getElementById(targetId);
+
+    if (!target) {
+        console.error(
+            'View not found:',
+            targetId
+        );
+
+        return;
+    }
+
+
+    document
+        .querySelectorAll('.view')
+        .forEach(view => {
+
+            view.classList.remove(
+                'active'
+            );
+
+        });
+
+
+    target.classList.add('active');
+
+
+    viewHistory.push(targetId);
+
+
+    updateBackButton();
+
+
+    /* Resize game when entering game view */
+
+    if (targetId === 'game-view') {
+
+        setTimeout(() => {
+
+            resizeGame();
+
+        }, 50);
+
+    }
+
+}
+
+
+function goBack() {
+
+    if (viewHistory.length <= 1) {
+        return;
+    }
+
+
+    viewHistory.pop();
+
+
+    const previous =
+        viewHistory[
+            viewHistory.length - 1
+        ];
+
+
+    document
+        .querySelectorAll('.view')
+        .forEach(view => {
+
+            view.classList.remove(
+                'active'
+            );
+
+        });
+
+
+    const previousView =
+        document.getElementById(previous);
+
+
+    if (previousView) {
+
+        previousView.classList.add(
+            'active'
+        );
+
+    }
+
+
+    updateBackButton();
+
+}
+
+
+function updateBackButton() {
+
+    const backBtn =
+        document.getElementById(
+            'back-btn'
+        );
+
+
+    if (
+        viewHistory[
+            viewHistory.length - 1
+        ] === 'main-menu'
+    ) {
+
+        backBtn.classList.remove(
+            'visible'
+        );
+
+    } else {
+
+        backBtn.classList.add(
+            'visible'
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   SPOTIFY PLAYER
+===================================================== */
+
+let currentTrack = null;
+
+
+function playSong(trackId) {
+
+    const player =
+        document.getElementById(
+            'song-player'
+        );
+
+
+    if (!player) {
+        return;
+    }
+
+
+    if (currentTrack === trackId) {
+
+        player.classList.remove(
+            'open'
+        );
+
+        currentTrack = null;
+
+
+        setTimeout(() => {
+
+            player.innerHTML = '';
+
+        }, 400);
+
+
+        return;
+    }
+
+
+    currentTrack = trackId;
+
+
+    player.innerHTML = `
+
+        <iframe
+            style="border-radius:8px"
+            src="https://open.spotify.com/embed/track/${trackId}?utm_source=generator"
+            width="100%"
+            height="152"
+            frameborder="0"
+            allowfullscreen
+            allow="
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                fullscreen;
+                picture-in-picture
+            "
+            loading="lazy">
+        </iframe>
+
+    `;
+
+
+    requestAnimationFrame(() => {
+
+        player.classList.add(
+            'open'
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   COMBAT SIM
+===================================================== */
+
+const canvas =
+    document.getElementById(
+        'game-canvas'
+    );
+
+const ctx =
+    canvas.getContext('2d');
+
+
+const scoreEl =
+    document.getElementById(
+        'hud-score'
+    );
+
+const livesEl =
+    document.getElementById(
+        'hud-lives'
+    );
+
+const gameBtn =
+    document.getElementById(
+        'game-btn'
+    );
+
+
+let gW = 0;
+let gH = 0;
+
+
+function resizeGame() {
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+
+    if (
+        rect.width === 0 ||
+        rect.height === 0
+    ) {
+        return;
+    }
+
+
+    const dpr =
+        window.devicePixelRatio || 1;
+
+
+    canvas.width =
+        rect.width * dpr;
+
+    canvas.height =
+        rect.height * dpr;
+
+
+    ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+
+    gW = rect.width;
+    gH = rect.height;
+
+
+    if (player) {
+
+        player.y =
+            gH - 40;
+
+        player.x =
+            Math.max(
+                player.r,
+                Math.min(
+                    gW - player.r,
+                    player.x
+                )
+            );
+
+    }
+
+}
+
+
+window.addEventListener(
+    'resize',
+    resizeGame
+);
+
+
+let gameState = 'idle';
+
+let player = null;
+
+let bullets = [];
+
+let enemies = [];
+
+let score = 0;
+
+let lives = 3;
+
+let spawnTimer = 0;
+
+let fireTimer = 0;
+
+
+/* =====================================================
+   INITIALIZE GAME
+===================================================== */
+
+function initGame() {
+
+    resizeGame();
+
+
+    player = {
+
+        x: gW / 2,
+
+        y: gH - 40,
+
+        r: 12
+
+    };
+
+
+    bullets = [];
+
+    enemies = [];
+
+    score = 0;
+
+    lives = 3;
+
+    spawnTimer = 0;
+
+    fireTimer = 0;
+
+
+    scoreEl.textContent =
+        'Score: 0';
+
+    livesEl.textContent =
+        'Lives: 3';
+
+}
+
+
+/* =====================================================
+   PLAYER MOVEMENT
+===================================================== */
+
+function movePlayer(clientX) {
+
+    if (
+        gameState !== 'playing' ||
+        !player
+    ) {
+        return;
+    }
+
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+
+    const x =
+        clientX - rect.left;
+
+
+    player.x =
+        Math.max(
+            player.r,
+            Math.min(
+                gW - player.r,
+                x
+            )
+        );
+
+}
+
+
+canvas.addEventListener(
+    'pointermove',
+    event => {
+
+        movePlayer(
+            event.clientX
+        );
+
+    }
+);
+
+
+canvas.addEventListener(
+    'pointerdown',
+    event => {
+
+        movePlayer(
+            event.clientX
+        );
+
+    }
+);
+
+
+/* =====================================================
+   ENEMY SPAWNING
+===================================================== */
+
+function spawnEnemy() {
+
+    const r =
+        12 + Math.random() * 6;
+
+
+    enemies.push({
+
+        x:
+            r +
+            Math.random() *
+            (gW - r * 2),
+
+        y: -r,
+
+        r: r,
+
+        speed:
+            1.2 +
+            Math.random() * 1.3 +
+            score * 0.01
+
+    });
+
+}
+
+
+/* =====================================================
+   DRAW BACKGROUND GRID
+===================================================== */
+
+function drawGameBackground() {
+
+    ctx.fillStyle = '#080808';
+
+    ctx.fillRect(
+        0,
+        0,
+        gW,
+        gH
+    );
+
+
+    ctx.strokeStyle =
+        'rgba(255,255,255,0.04)';
+
+    ctx.lineWidth = 1;
+
+
+    const gridSize = 30;
+
+
+    for (
+        let x = 0;
+        x < gW;
+        x += gridSize
+    ) {
+
+        ctx.beginPath();
+
+        ctx.moveTo(x, 0);
+
+        ctx.lineTo(x, gH);
+
+        ctx.stroke();
+
+    }
+
+
+    for (
+        let y = 0;
+        y < gH;
+        y += gridSize
+    ) {
+
+        ctx.beginPath();
+
+        ctx.moveTo(0, y);
+
+        ctx.lineTo(gW, y);
+
+        ctx.stroke();
+
+    }
+
+}
+
+
+/* =====================================================
+   GAME LOOP
+===================================================== */
+
+function gameLoop() {
+
+    if (
+        gameState !== 'playing'
+    ) {
+        return;
+    }
+
+
+    drawGameBackground();
+
+
+    /* Automatic weapon fire */
+
+    fireTimer++;
+
+
+    if (fireTimer > 18) {
+
+        bullets.push({
+
+            x: player.x,
+
+            y:
+                player.y -
+                player.r
+
+        });
+
+
+        fireTimer = 0;
+
+    }
+
+
+    /* Enemy spawning */
+
+    spawnTimer++;
+
+
+    if (
+        spawnTimer >
+        Math.max(
+            20,
+            55 - score
+        )
+    ) {
+
+        spawnEnemy();
+
+        spawnTimer = 0;
+
+    }
+
+
+    /* Move bullets */
+
+    bullets.forEach(
+        bullet => {
+
+            bullet.y -= 7;
+
+        }
+    );
+
+
+    bullets =
+        bullets.filter(
+            bullet =>
+                bullet.y > -10
+        );
+
+
+    /* Move enemies */
+
+    enemies.forEach(
+        enemy => {
+
+            enemy.y += enemy.speed;
+
+        }
+    );
+
+
+    /* Bullet / enemy collision */
+
+    for (
+        let i = enemies.length - 1;
+        i >= 0;
+        i--
+    ) {
+
+        const enemy =
+            enemies[i];
+
+
+        if (
+            enemy.y - enemy.r >
+            gH
+        ) {
+
+            enemies.splice(i, 1);
+
+            continue;
+
+        }
+
+
+        for (
+            let j = bullets.length - 1;
+            j >= 0;
+            j--
+        ) {
+
+            const bullet =
+                bullets[j];
+
+
+            const dx =
+                enemy.x -
+                bullet.x;
+
+
+            const dy =
+                enemy.y -
+                bullet.y;
+
+
+            const distance =
+                Math.sqrt(
+                    dx * dx +
+                    dy * dy
+                );
+
+
+            if (
+                distance <
+                enemy.r + 3
+            ) {
+
+                enemies.splice(
+                    i,
+                    1
+                );
+
+                bullets.splice(
+                    j,
+                    1
+                );
+
+
+                score += 10;
+
+
+                scoreEl.textContent =
+                    'Score: ' +
+                    score;
+
+
+                break;
+
+            }
+
+        }
+
+    }
+
+
+    /* Enemy / player collision */
+
+    for (
+        let i = enemies.length - 1;
+        i >= 0;
+        i--
+    ) {
+
+        const enemy =
+            enemies[i];
+
+
+        const dx =
+            enemy.x -
+            player.x;
+
+
+        const dy =
+            enemy.y -
+            player.y;
+
+
+        const distance =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        if (
+            distance <
+            enemy.r +
+            player.r
+        ) {
+
+            enemies.splice(
+                i,
+                1
+            );
+
+
+            lives--;
+
+
+            livesEl.textContent =
+                'Lives: ' +
+                lives;
+
+
+            if (lives <= 0) {
+
+                endGame();
+
+                return;
+
+            }
+
+        }
+
+    }
+
+
+    /* Draw bullets */
+
+    ctx.fillStyle =
+        '#D90429';
+
+
+    bullets.forEach(
+        bullet => {
+
+            ctx.fillRect(
+
+                bullet.x - 2,
+
+                bullet.y - 8,
+
+                4,
+
+                8
+
+            );
+
+        }
+    );
+
+
+    /* Draw enemies */
+
+    ctx.fillStyle =
+        '#FF0033';
+
+
+    enemies.forEach(
+        enemy => {
+
+            ctx.beginPath();
+
+            ctx.arc(
+                enemy.x,
+                enemy.y,
+                enemy.r,
+                0,
+                Math.PI * 2
+            );
+
+            ctx.fill();
+
+
+            /* Enemy glow */
+
+            ctx.shadowColor =
+                '#FF0033';
+
+            ctx.shadowBlur = 12;
+
+            ctx.fill();
+
+            ctx.shadowBlur = 0;
+
+        }
+    );
+
+
+    /* Draw player */
+
+    ctx.fillStyle =
+        '#F7FAFC';
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        player.x,
+        player.y -
+        player.r
+    );
+
+    ctx.lineTo(
+        player.x -
+        player.r,
+        player.y +
+        player.r
+    );
+
+    ctx.lineTo(
+        player.x +
+        player.r,
+        player.y +
+        player.r
+    );
+
+    ctx.closePath();
+
+    ctx.fill();
+
+
+    requestAnimationFrame(
+        gameLoop
+    );
+
+}
+
+
+/* =====================================================
+   GAME OVER
+===================================================== */
+
+function endGame() {
+
+    gameState = 'over';
+
+
+    gameBtn.textContent =
+        'Score: ' +
+        score +
+        ' — Retry';
+
+
+    gameBtn.style.display =
+        'block';
+
+}
+
+
+/* =====================================================
+   START GAME
+===================================================== */
+
+function startGame() {
+
+    initGame();
+
+
+    gameState = 'playing';
+
+
+    gameBtn.style.display =
+        'none';
+
+
+    requestAnimationFrame(
+        gameLoop
+    );
+
+}
+
+
+gameBtn.addEventListener(
+    'click',
+    startGame
+);
+
+
+/* =====================================================
+   INITIAL CANVAS SETUP
+===================================================== */
+
+window.addEventListener(
+    'load',
+    () => {
+
+        resizeGame();
+
+    }
+);
+
+  </script>
+
+  </body>
+</html>
